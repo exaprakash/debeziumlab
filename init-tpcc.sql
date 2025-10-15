@@ -1,0 +1,3 @@
+CREATE DATABASE tpcc;
+GRANT ALL PRIVILEGES ON tpcc.* TO 'mysqluser'@'%';
+FLUSH PRIVILEGES;
