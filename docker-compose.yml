@@ -106,6 +106,26 @@ services:
     environment:
      - DS_PROMETHEUS=prometheus
 
+  akhq:
+    image: tchiotludo/akhq
+    restart: unless-stopped
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka:9092"
+              schema-registry:
+                url: "http://schema-registry:8085"
+              connect:
+                - name: "connect"
+                  url: "http://connect:8083"
+    ports:
+      - 8090:8080
+    links:
+      - kafka
+      - connect
 
 networks:
   default:
