@@ -105,8 +105,6 @@ services:
      - prometheus
     environment:
      - DS_PROMETHEUS=prometheus
-    volumes:
-      - ./provisioning:/etc/grafana/provisioning
       
   akhq:
     image: tchiotludo/akhq
