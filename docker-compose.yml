@@ -52,7 +52,7 @@ services:
     image: tpcorg/hammerdb:latest-cloudtk
     container_name: hammerdb
     ports:
-      - "9081:8081" 
+      - "3002:8081" 
       - "9082:8082" 
       - "9080:8080"
     depends_on:
@@ -122,7 +122,7 @@ services:
                 - name: "connect"
                   url: "http://connect:8083"
     ports:
-      - 8090:8080
+      - 3001:8080
     links:
       - kafka
       - connect
