@@ -20,6 +20,15 @@ services:
       - JMXHOST=localhost
       - JMXPORT=1977
 
+  kafka-init:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: kafka-init
+    depends_on:
+      - kafka
+    entrypoint: ["sh", "/scripts/create-topics.sh"]
+    volumes:
+      - ./init-scripts:/scripts
+
   srcmysql:
     image: quay.io/debezium/example-mysql:3.3
     container_name: srcmysql
@@ -70,6 +79,7 @@ services:
      - 1976:1976
     depends_on:
      - kafka
+     - kafka-init
      - srcmysql
      - sinkmysql
     environment:

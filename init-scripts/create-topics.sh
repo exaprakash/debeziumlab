@@ -19,7 +19,7 @@ for topic in "${!topics_partitions[@]}"
 do
   partitions=${topics_partitions[$topic]}
   echo "Creating topic $topic with $partitions partitions..."
-  kafka-topics.sh --create \
+  /usr/bin/kafka-topics --create \
     --if-not-exists \
     --topic "$topic" \
     --bootstrap-server kafka:9092 \

@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 6,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -52,19 +52,19 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 12,
+        "w": 11,
         "x": 0,
         "y": 0
       },
-      "id": 13,
+      "id": 17,
       "options": {
-        "displayMode": "gradient",
+        "displayMode": "lcd",
         "minVizHeight": 10,
         "minVizWidth": 0,
         "orientation": "horizontal",
@@ -75,10 +75,7 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {
-          "titleSize": 10
-        }
+        "showUnfilled": true
       },
       "pluginVersion": "9.4.7",
       "targets": [
@@ -88,34 +85,13 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_bytesin_total{job=\"kafka\"}) ",
+          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_bytesin_total{job=\"${job}\"}) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Bytes In",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "sum by(topic) (kafka_server_brokertopicmetrics_messagesin_total{job=\"kafka\"}) /1000",
-                "src.tpcc.customer",
-                "src.tpcc.district",
-                "src.tpcc.history",
-                "src.tpcc.item",
-                "src.tpcc.new_order",
-                "src.tpcc.order_line",
-                "src.tpcc.orders",
-                "src.tpcc.stock",
-                "src.tpcc.warehouse"
-              ]
-            }
-          }
-        }
-      ],
+      "title": "Bytes In ",
       "type": "bargauge"
     },
     {
@@ -142,19 +118,19 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "bytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
+        "h": 12,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
-      "id": 14,
+      "id": 19,
       "options": {
-        "displayMode": "gradient",
+        "displayMode": "lcd",
         "minVizHeight": 10,
         "minVizWidth": 0,
         "orientation": "horizontal",
@@ -165,10 +141,7 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {
-          "titleSize": 10
-        }
+        "showUnfilled": true
       },
       "pluginVersion": "9.4.7",
       "targets": [
@@ -178,34 +151,13 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_bytesout_total{job=\"kafka\"}) ",
+          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_bytesout_total{job=\"${job}\"}) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Bytes out",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "sum by(topic) (kafka_server_brokertopicmetrics_messagesin_total{job=\"kafka\"}) /1000",
-                "src.tpcc.customer",
-                "src.tpcc.district",
-                "src.tpcc.history",
-                "src.tpcc.item",
-                "src.tpcc.new_order",
-                "src.tpcc.order_line",
-                "src.tpcc.orders",
-                "src.tpcc.stock",
-                "src.tpcc.warehouse"
-              ]
-            }
-          }
-        }
-      ],
+      "title": "Bytes Out",
       "type": "bargauge"
     },
     {
@@ -240,7 +192,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 12
       },
       "id": 12,
       "options": {
@@ -268,99 +220,13 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_messagesin_total{job=\"kafka\"}) ",
+          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_messagesin_total{job=~\"$job\"}) ",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "Message in",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "sum by(topic) (kafka_server_brokertopicmetrics_messagesin_total{job=\"kafka\"}) /1000",
-                "src.tpcc.customer",
-                "src.tpcc.district",
-                "src.tpcc.history",
-                "src.tpcc.item",
-                "src.tpcc.new_order",
-                "src.tpcc.order_line",
-                "src.tpcc.orders",
-                "src.tpcc.stock",
-                "src.tpcc.warehouse"
-              ]
-            }
-          }
-        }
-      ],
-      "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "continuous-GrYlRd"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 8
-      },
-      "id": 15,
-      "options": {
-        "displayMode": "lcd",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true
-      },
-      "pluginVersion": "9.4.7",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "editorMode": "code",
-          "expr": "sum by(topic) (kafka_server_brokertopicmetrics_totalfetchrequests_total{job=\"kafka\"}) ",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Fetch Requests",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -416,8 +282,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 16
+        "x": 12,
+        "y": 12
       },
       "id": 10,
       "options": {
@@ -440,7 +306,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum by(topic) (kafka_log_log_size{job=\"kafka\"}) /1024 / 1024 /1024",
+          "expr": "sum by(topic) (kafka_log_log_size{job=~\"$job\"}) /1024 / 1024 /1024",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -471,22 +337,50 @@
       "type": "gauge"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "revision": 1,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "kafka",
+          "value": "kafka"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P1809F7CD0C75ACF3"
+        },
+        "definition": "label_values(job)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "job",
+        "multi": false,
+        "name": "job",
+        "options": [],
+        "query": {
+          "query": "label_values(job)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "WIP",
   "uid": "vug__u6Nk",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

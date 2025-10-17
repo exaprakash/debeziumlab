@@ -1,3 +1,4 @@
 CREATE DATABASE tpcc;
 GRANT ALL PRIVILEGES ON tpcc.* TO 'mysqluser'@'%';
 FLUSH PRIVILEGES;
+SET GLOBAL max_connections = 500;
