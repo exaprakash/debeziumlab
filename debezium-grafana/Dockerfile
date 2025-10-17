@@ -1,6 +1,9 @@
 ARG GRAFANA_VERSION
 FROM grafana/grafana:${GRAFANA_VERSION}
 
+RUN grafana-cli plugins install hamedkarbasi93-kafka-datasource
+RUN chown -R grafana:grafana /var/lib/grafana/plugins
+
 COPY dashboard.yml /etc/grafana/provisioning/dashboards
 COPY datasource.yml /etc/grafana/provisioning/datasources
 COPY debezium-dashboard.json /etc/grafana/provisioning/dashboards/dashboards/debezium-dashboard.json
