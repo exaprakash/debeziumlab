@@ -3,7 +3,7 @@
   "config": {
     "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
     "tasks.max": "1",
-    "topics": "src_tpcc.tpcc.customer,src_tpcc.tpcc.orders,src_tpcc.tpcc.new_order,src_tpcc.tpcc.stock,src_tpcc.tpcc.district,src_tpcc.tpcc.item,src_tpcc.tpcc.warehouse,src_tpcc.tpcc.history,src_tpcc.tpcc.order_line",
+    "topics": "src.tpcc.customer,src.tpcc.orders,src.tpcc.new_order,src.tpcc.stock,src.tpcc.district,src.tpcc.item,src.tpcc.warehouse,src.tpcc.history,src.tpcc.order_line",
     "connection.url": "jdbc:mysql://sinkmysql:3306/tpcc",
     "connection.username": "mysqluser",
     "connection.password": "mysqlpw",
