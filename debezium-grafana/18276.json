@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 18276,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -572,8 +572,9 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum (rate(kafka_server_brokertopicmetrics_bytesout_total{job=\"$kafka_job_name\",topic!=\"\"}[1m]))by(topic)",
+          "expr": "sum (rate(kafka_server_brokertopicmetrics_bytesout_total{job=\"$kafka_job_name\",topic=~\"$topic\"}[1m]))by(topic)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -586,8 +587,9 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum (rate(kafka_server_brokertopicmetrics_bytesin_total{job=\"$kafka_job_name\",topic!=\"\"}[1m]))by(topic)",
+          "expr": "sum (rate(kafka_server_brokertopicmetrics_bytesin_total{job=\"$kafka_job_name\",topic=~\"$topic\"}[1m]))by(topic)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -598,7 +600,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Bytes In / Out Per Broker",
+      "title": "Bytes In / Out Per Topic",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1795,7 +1797,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 36
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1891,7 +1893,7 @@
         "h": 6,
         "w": 8,
         "x": 8,
-        "y": 36
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 12,
@@ -1981,7 +1983,7 @@
         "h": 6,
         "w": 8,
         "x": 16,
-        "y": 36
+        "y": 30
       },
       "hiddenSeries": false,
       "id": 14,
@@ -2097,7 +2099,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
