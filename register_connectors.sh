@@ -32,12 +32,6 @@ for table in "${!table_partitions[@]}"; do
   tasks_max=$(( partitions / 4 ))
   output_file="./scripts/connector-templates/register-${table}.json"
   echo "🔧 Generating connector config for table: ${table} (tasks.max=${tasks_max})"
-  # Determine primary.key.mode per table
-  if [ "$table" == "history" ]; then
-    PRIMARY_KEY_MODE="synthetic_key"
-  else
-    PRIMARY_KEY_MODE="record_key"
-  fi
   cat > "$output_file" <<EOF
 {
   "name": "${connector_name}",
@@ -50,7 +44,7 @@ for table in "${!table_partitions[@]}"; do
     "connection.password": "${PASSWORD}",
     "insert.mode": "upsert",
     "delete.enabled": "true",
-    "primary.key.mode": "${PRIMARY_KEY_MODE}",
+    "primary.key.mode": "record_key",
     "pk.mode": "kafka",
     "schema.evolution": "basic",
     "auto.create": "true",
