@@ -1,2 +1,19 @@
 docker rmi -f $(docker images -a -q)
  docker compose  exec -it sinkmysql mysql -uroot -pdebezium
+
+     SELECT 
+        table_schema AS 'DB Name',
+        ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS 'DB Size in MB'
+    FROM 
+        information_schema.tables 
+    GROUP BY 
+        table_schema
+    ORDER BY 
+        'DB Size in MB' DESC;
+
+
+SELECT 'customer' AS table_name, COUNT(*) AS row_count FROM customer UNION ALL SELECT 'district', COUNT(*) FROM district UNION ALL
+SELECT 'history', COUNT(*) FROM history UNION ALL SELECT 'item', COUNT(*) FROM item UNION ALL SELECT 'new_order', COUNT(*) FROM new_order
+UNION ALL SELECT 'order_line', COUNT(*) FROM order_line UNION ALL SELECT 'orders', COUNT(*) FROM orders UNION ALL SELECT 'stock', COUNT(*) FROM stock UNION ALL SELECT 'warehouse', COUNT(*) FROM warehouse;
+
+
