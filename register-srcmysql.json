@@ -11,7 +11,7 @@
     "topic.prefix": "tpcc",
     "database.include.list": "tpcc",
     "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
-    "schema.history.internal.kafka.topic": "src_tpcc.schema_changes",
+    "schema.history.internal.kafka.topic": "tpcc.schema_changes",
     "key.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "key.converter.schemas.enable": "true",
