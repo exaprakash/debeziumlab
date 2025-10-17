@@ -8,5 +8,6 @@ COPY dashboard.yml /etc/grafana/provisioning/dashboards
 COPY datasource.yml /etc/grafana/provisioning/datasources
 COPY debezium-dashboard.json /etc/grafana/provisioning/dashboards/dashboards/debezium-dashboard.json
 COPY brokers-dashboard.json /etc/grafana/provisioning/dashboards/dashboards/brokers-dashboard.json
+COPY wip.json /etc/grafana/provisioning/dashboards/dashboards/wip.json
 COPY debezium-mysql-connector-dashboard.json /etc/grafana/provisioning/dashboards/dashboards/debezium-mysql-connector-dashboard.json
 COPY prometheus_ds.yml /etc/grafana/provisioning/datasources
