@@ -27,7 +27,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11962,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 7,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -593,7 +593,7 @@
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "description": "If <= 0 is very idle",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "decimals": 2,
@@ -611,7 +611,6 @@
           ],
           "max": 100,
           "min": 0,
-          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -634,14 +633,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 10,
         "w": 5,
         "x": 0,
         "y": 6
       },
-      "id": 681,
+      "id": 467,
       "links": [],
-      "maxPerRow": 6,
       "options": {
         "orientation": "horizontal",
         "reduceOptions": {
@@ -663,17 +661,15 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "editorMode": "code",
-          "expr": "100 - (rate(kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_count{job=\"$job\",instance=~\"$broker\"}[1m]) / 10000000)",
+          "expr": "100 - (kafka_network_socketserver_networkprocessoravgidlepercent{job=\"$job\",instance=~\"$broker\"}*100)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Request handler avg {{instance}}",
-          "range": true,
+          "legendFormat": "Network processor avg {{instance}}",
           "refId": "A"
         }
       ],
-      "title": "Request handler pool idle %",
+      "title": "Network Idle %",
       "type": "gauge"
     },
     {
@@ -893,7 +889,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
+        "w": 8,
         "x": 11,
         "y": 6
       },
@@ -932,7 +928,7 @@
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "description": "",
+      "description": "If <= 0 is very idle",
       "fieldConfig": {
         "defaults": {
           "decimals": 2,
@@ -950,6 +946,7 @@
           ],
           "max": 100,
           "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -972,13 +969,14 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 10,
         "w": 5,
-        "x": 0,
-        "y": 11
+        "x": 19,
+        "y": 6
       },
-      "id": 467,
+      "id": 681,
       "links": [],
+      "maxPerRow": 6,
       "options": {
         "orientation": "horizontal",
         "reduceOptions": {
@@ -1000,15 +998,17 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "100 - (kafka_network_socketserver_networkprocessoravgidlepercent{job=\"$job\",instance=~\"$broker\"}*100)",
+          "editorMode": "code",
+          "expr": "100 - (rate(kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_count{job=\"$job\",instance=~\"$broker\"}[1m]) / 10000000)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Network processor avg {{instance}}",
+          "legendFormat": "Request handler avg {{instance}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "Network Idle %",
+      "title": "Request handler pool idle %",
       "type": "gauge"
     },
     {
@@ -1164,7 +1164,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
+        "w": 8,
         "x": 11,
         "y": 11
       },
