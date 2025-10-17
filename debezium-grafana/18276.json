@@ -2392,11 +2392,11 @@
         "name": "kafka_job_name",
         "options": [],
         "query": {
-          "query": "label_values(kafka_controller_kafkacontroller_controllerstate, job)",
+          "query": "label_values(job)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "/kafka-.*/",
+        "regex": "/kafka/",
         "skipUrlSync": false,
         "sort": 0,
         "type": "query"
