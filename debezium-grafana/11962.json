@@ -27,7 +27,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11962,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -563,191 +563,118 @@
       "type": "stat"
     },
     {
-      "columns": [],
+      "collapsed": true,
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "description": "",
-      "fontSize": "100%",
       "gridPos": {
-        "h": 10,
-        "w": 9,
+        "h": 1,
+        "w": 24,
         "x": 0,
         "y": 5
       },
-      "id": 622,
-      "links": [],
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 0,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Time",
-          "align": "auto",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "pattern": "Time",
-          "type": "hidden"
-        },
-        {
-          "alias": "",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 2,
-          "pattern": "__name__",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
-        },
-        {
-          "alias": " Brokers",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "instance",
-          "thresholds": [],
-          "type": "string",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "align": "auto",
-          "colorMode": "value",
-          "colors": [
-            "#FA6400",
-            "#56A64B",
-            "#FF780A"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Value",
-          "thresholds": [
-            "1"
-          ],
-          "type": "string",
-          "unit": "short",
-          "valueMaps": [
-            {
-              "text": "Controller",
-              "value": "1"
-            },
-            {
-              "text": "Follower",
-              "value": "0"
-            }
-          ]
-        },
-        {
-          "alias": "",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "job",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
-        }
-      ],
+      "id": 680,
+      "panels": [],
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "kafka_controller_kafkacontroller_activecontrollercount{job=~\"$job\"}",
-          "format": "table",
-          "instant": true,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Controller and Followers ",
-      "transform": "table",
-      "type": "table-old"
+      "title": "Request Handler",
+      "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
+      "description": "If <= 0 is very idle",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "displayName": "Messages In Per Sec",
-          "mappings": [],
+          "decimals": 2,
+          "displayName": "Broker: $broker",
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 100,
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "#299c46",
                 "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 80
+              },
+              {
+                "color": "#d44a3a",
+                "value": 90
               }
             ]
           },
-          "unit": "locale"
+          "unit": "percent"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 9,
-        "y": 5
+        "w": 5,
+        "x": 0,
+        "y": 6
       },
-      "id": 683,
+      "id": 681,
+      "links": [],
+      "maxPerRow": 6,
       "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "last"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
       "pluginVersion": "9.4.7",
+      "repeat": "broker",
+      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "sum(rate(kafka_server_brokertopicmetrics_messagesin_total{job=\"$job\",topic=\"\"}[1m]))",
+          "editorMode": "code",
+          "expr": "100 - (rate(kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_count{job=\"$job\",instance=~\"$broker\"}[1m]) / 10000000)",
+          "format": "time_series",
           "interval": "",
-          "legendFormat": "Total messages in per sec ",
+          "intervalFactor": 1,
+          "legendFormat": "Request handler avg {{instance}}",
+          "range": true,
           "refId": "A"
         }
       ],
-      "type": "stat"
+      "title": "Request handler pool idle %",
+      "type": "gauge"
     },
     {
       "columns": [],
@@ -758,10 +685,10 @@
       "description": "",
       "fontSize": "100%",
       "gridPos": {
-        "h": 10,
-        "w": 9,
-        "x": 15,
-        "y": 5
+        "h": 5,
+        "w": 6,
+        "x": 5,
+        "y": 6
       },
       "id": 619,
       "links": [],
@@ -967,10 +894,10 @@
       "gridPos": {
         "h": 5,
         "w": 6,
-        "x": 9,
-        "y": 10
+        "x": 11,
+        "y": 6
       },
-      "id": 688,
+      "id": 684,
       "options": {
         "colorMode": "background",
         "graphMode": "area",
@@ -992,9 +919,9 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "sum(increase(kafka_server_brokertopicmetrics_messagesin_total{job=\"$job\",topic=\"\"}[$__range]))",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_messagesin_total{job=\"$job\",topic=\"\"}[1m]))",
           "interval": "",
-          "legendFormat": "Total messages from ${__from:date:MM-DD hA} to ${__to:date:MM-DD hA}",
+          "legendFormat": "Total messages in per sec ",
           "refId": "A"
         }
       ],
@@ -1046,9 +973,9 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 5,
         "x": 0,
-        "y": 15
+        "y": 11
       },
       "id": 467,
       "links": [],
@@ -1081,118 +1008,197 @@
           "refId": "A"
         }
       ],
+      "title": "Network Idle %",
       "type": "gauge"
     },
     {
-      "collapsed": false,
+      "columns": [],
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
+      "description": "",
+      "fontSize": "100%",
       "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 20
+        "h": 5,
+        "w": 6,
+        "x": 5,
+        "y": 11
       },
-      "id": 680,
-      "panels": [],
+      "id": 622,
+      "links": [],
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "__name__",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": " Brokers",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "instance",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": "value",
+          "colors": [
+            "#FA6400",
+            "#56A64B",
+            "#FF780A"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [
+            "1"
+          ],
+          "type": "string",
+          "unit": "short",
+          "valueMaps": [
+            {
+              "text": "Controller",
+              "value": "1"
+            },
+            {
+              "text": "Follower",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "job",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        }
+      ],
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
+          "expr": "kafka_controller_kafkacontroller_activecontrollercount{job=~\"$job\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Request Handler",
-      "type": "row"
+      "title": "Controller and Followers ",
+      "transform": "table",
+      "type": "table-old"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "description": "If <= 0 is very idle",
       "fieldConfig": {
         "defaults": {
-          "decimals": 2,
-          "displayName": "Broker: $broker",
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 100,
-          "min": 0,
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Messages Out Per Sec",
+          "mappings": [],
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#299c46",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "#d44a3a",
-                "value": 90
               }
             ]
           },
-          "unit": "percent"
+          "unit": "locale"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
-        "x": 0,
-        "y": 21
+        "w": 6,
+        "x": 11,
+        "y": 11
       },
-      "id": 681,
-      "links": [],
-      "maxPerRow": 6,
+      "id": 685,
       "options": {
-        "orientation": "horizontal",
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "textMode": "auto"
       },
       "pluginVersion": "9.4.7",
-      "repeat": "broker",
-      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "100 - rate(kafka_server_kafkarequesthandlerpool_requesthandleravgidlepercent_count{job=\"$job\",instance=~\"$broker\"}[1m]) / 10000000",
-          "format": "time_series",
+          "editorMode": "code",
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_messagesout_total{job=\"$job\",topic=\"\"}[1m]))",
           "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Request handler avg {{instance}}",
+          "legendFormat": "Total messages in per sec ",
+          "range": true,
           "refId": "A"
         }
       ],
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -1204,7 +1210,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 16
       },
       "id": 651,
       "panels": [],
@@ -1263,7 +1269,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 27
+        "y": 17
       },
       "id": 192,
       "links": [],
@@ -1338,7 +1344,7 @@
         "h": 5,
         "w": 8,
         "x": 8,
-        "y": 27
+        "y": 17
       },
       "id": 677,
       "links": [],
@@ -1413,7 +1419,7 @@
         "h": 5,
         "w": 8,
         "x": 16,
-        "y": 27
+        "y": 17
       },
       "id": 678,
       "links": [],
@@ -1470,7 +1476,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 32
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 665,
@@ -1569,7 +1575,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 32
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 666,
@@ -1668,7 +1674,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 32
+        "y": 22
       },
       "hiddenSeries": false,
       "id": 667,
@@ -1755,7 +1761,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 30
       },
       "id": 653,
       "panels": [],
@@ -1793,7 +1799,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 41
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 152,
@@ -1894,7 +1900,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 41
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 155,
@@ -2006,7 +2012,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 50,
@@ -2111,7 +2117,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 154,
@@ -2216,7 +2222,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 176,
@@ -2318,7 +2324,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 51
       },
       "hiddenSeries": false,
       "id": 142,
@@ -2431,7 +2437,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 61
       },
       "id": 28,
       "panels": [],
@@ -2469,7 +2475,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 72
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 612,
@@ -2569,7 +2575,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 72
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 613,
@@ -2669,7 +2675,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 81
+        "y": 71
       },
       "hiddenSeries": false,
       "id": 614,
@@ -2769,7 +2775,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 81
+        "y": 71
       },
       "hiddenSeries": false,
       "id": 615,
@@ -2868,310 +2874,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 0,
-        "y": 90
-      },
-      "hiddenSeries": false,
-      "id": 138,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "paceLength": 10,
-      "percentage": false,
-      "pluginVersion": "9.4.7",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "expr": "sum (irate(kafka_server_sessionexpirelistener_zookeeperdisconnects_total{job=\"$job\",instance=~\"$broker\"}[1m]))by(instance)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Broker - {{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "ZooKeeper Disconnects Per Sec",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "ms",
-          "label": "Time/ms",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 8,
-        "y": 90
-      },
-      "hiddenSeries": false,
-      "id": 139,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "paceLength": 10,
-      "percentage": false,
-      "pluginVersion": "9.4.7",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "expr": "sum (irate(kafka_server_sessionexpirelistener_zookeeperexpires_total{job=\"$job\",instance=~\"$broker\"}[1m]))by(instance)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Broker - {{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "ZooKeeper Expires Per Sec",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:1050",
-          "format": "ms",
-          "label": "Time/ms",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:1051",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 90
-      },
-      "hiddenSeries": false,
-      "id": 150,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "paceLength": 10,
-      "percentage": false,
-      "pluginVersion": "9.4.7",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "expr": "sum(kafka_server_zookeeperclientmetrics_zookeeperrequestlatencyms{job=\"$job\",instance=~\"$broker\"})by(instance)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Broker: {{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "ZooKeeper Request Latency Ms",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "ms",
-          "label": "Time/ms",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "P1809F7CD0C75ACF3"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 98
+        "y": 80
       },
       "hiddenSeries": false,
       "id": 193,
@@ -3197,7 +2903,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3279,7 +2985,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3290,7 +2995,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 98
+        "y": 80
       },
       "hiddenSeries": false,
       "id": 177,
@@ -3314,7 +3019,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3381,7 +3086,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3392,7 +3096,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 108
+        "y": 90
       },
       "hiddenSeries": false,
       "id": 178,
@@ -3416,7 +3120,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3486,7 +3190,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3497,7 +3200,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 108
+        "y": 90
       },
       "hiddenSeries": false,
       "id": 196,
@@ -3523,7 +3226,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3589,7 +3292,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3600,7 +3302,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 116
+        "y": 98
       },
       "hiddenSeries": false,
       "id": 56,
@@ -3624,7 +3326,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3689,7 +3391,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3700,7 +3401,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 116
+        "y": 98
       },
       "hiddenSeries": false,
       "id": 147,
@@ -3724,7 +3425,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3790,7 +3491,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3801,7 +3501,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 124
+        "y": 106
       },
       "hiddenSeries": false,
       "id": 195,
@@ -3827,7 +3527,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3894,7 +3594,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -3905,7 +3604,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 124
+        "y": 106
       },
       "hiddenSeries": false,
       "id": 140,
@@ -3931,7 +3630,7 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
+      "pluginVersion": "9.4.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -3985,24 +3684,225 @@
       }
     },
     {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "decimals": 2,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 0,
+        "y": 115
+      },
+      "hiddenSeries": false,
+      "id": 609,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": true,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 2,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "expr": "sort(sum(kafka_log_log_size{job=~\"$job\",instance=~\"$broker\"})by(instance))",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Instance Broker:  {{instance}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Disk Usage Segment Size",
+      "tooltip": {
+        "shared": false,
+        "sort": 1,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "series",
+        "show": true,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 2,
+          "format": "bytes",
+          "label": "",
+          "logBase": 2,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "decimals": 0,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 4,
+        "y": 115
+      },
+      "hiddenSeries": false,
+      "id": 603,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "expr": "sort(sum(kafka_server_replicamanager_partitioncount{job=~\"$job\"}) by (instance))",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Instance Broker: {{instance}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Count Partition per Broker",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "series",
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "none",
+          "logBase": 2,
+          "show": true
+        },
+        {
+          "decimals": 0,
+          "format": "none",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": true,
+        "alignLevel": 0
+      }
+    },
+    {
       "columns": [],
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "fontSize": "100%",
       "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 133
+        "h": 7,
+        "w": 15,
+        "x": 9,
+        "y": 115
       },
       "id": 628,
       "links": [],
@@ -4131,46 +4031,69 @@
       "type": "table-old"
     },
     {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 122
+      },
+      "id": 159,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "JVM",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "decimals": 2,
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
       },
-      "fill": 0,
+      "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 24,
+        "h": 7,
+        "w": 5,
         "x": 0,
-        "y": 142
+        "y": 123
       },
       "hiddenSeries": false,
-      "id": 609,
+      "id": 161,
       "legend": {
         "alignAsTable": true,
         "avg": false,
         "current": true,
         "max": true,
         "min": true,
-        "rightSide": true,
-        "show": false,
+        "show": true,
         "total": false,
         "values": true
       },
-      "lines": false,
-      "linewidth": 2,
+      "lines": true,
+      "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
       "options": {
@@ -4178,8 +4101,8 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
-      "pointradius": 5,
+      "pluginVersion": "9.4.7",
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
@@ -4192,37 +4115,32 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "sort(sum(kafka_log_log_size{job=~\"$job\",instance=~\"$broker\"})by(instance))",
+          "expr": "jvm_threads_current{job=\"$job\",instance=~\"$broker\"}",
           "format": "time_series",
-          "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Instance Broker:  {{instance}}",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Disk Usage Segment Size",
+      "title": "JVM Threads Current",
       "tooltip": {
-        "shared": false,
-        "sort": 1,
+        "shared": true,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
-        "mode": "series",
+        "mode": "time",
         "show": true,
-        "values": [
-          "total"
-        ]
+        "values": []
       },
       "yaxes": [
         {
-          "decimals": 2,
-          "format": "bytes",
-          "label": "",
-          "logBase": 2,
+          "format": "none",
+          "logBase": 1,
           "show": true
         },
         {
@@ -4237,18 +4155,16 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "decimals": 0,
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -4256,23 +4172,24 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 150
+        "h": 7,
+        "w": 6,
+        "x": 5,
+        "y": 123
       },
       "hiddenSeries": false,
-      "id": 603,
+      "id": 163,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -4281,8 +4198,8 @@
       },
       "paceLength": 10,
       "percentage": false,
-      "pluginVersion": "7.3.4",
-      "pointradius": 2,
+      "pluginVersion": "9.4.7",
+      "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
@@ -4295,469 +4212,238 @@
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
-          "expr": "sort(sum(kafka_server_replicamanager_partitioncount{job=~\"$job\"}) by (instance))",
+          "expr": "sum without(area)(jvm_memory_bytes_used{job=\"$job\",instance=~\"$broker\"} )",
           "format": "time_series",
-          "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Instance Broker: {{instance}}",
+          "legendFormat": "Broker - {{instance}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Count Partition per Broker",
+      "title": "JVM Memory Usage",
       "tooltip": {
-        "shared": false,
-        "sort": 2,
+        "shared": true,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
-        "mode": "series",
+        "mode": "time",
         "show": true,
-        "values": [
-          "current"
-        ]
+        "values": []
       },
       "yaxes": [
         {
-          "decimals": 0,
-          "format": "none",
-          "logBase": 2,
+          "format": "bytes",
+          "logBase": 1,
           "show": true
         },
         {
-          "decimals": 0,
-          "format": "none",
+          "format": "short",
           "logBase": 1,
           "show": true
         }
       ],
       "yaxis": {
-        "align": true,
-        "alignLevel": 0
+        "align": false
       }
     },
     {
-      "collapsed": true,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "P1809F7CD0C75ACF3"
       },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 158
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
       },
-      "id": 159,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "links": []
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 0,
-            "y": 156
-          },
-          "hiddenSeries": false,
-          "id": 161,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "paceLength": 10,
-          "percentage": false,
-          "pluginVersion": "7.3.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P1809F7CD0C75ACF3"
-              },
-              "expr": "jvm_threads_current{job=\"$job\",instance=~\"$broker\"}",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "JVM Threads Current",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "none",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "links": []
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 12,
-            "y": 156
-          },
-          "hiddenSeries": false,
-          "id": 163,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "paceLength": 10,
-          "percentage": false,
-          "pluginVersion": "7.3.4",
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P1809F7CD0C75ACF3"
-              },
-              "expr": "sum without(area)(jvm_memory_bytes_used{job=\"$job\",instance=~\"$broker\"} )",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "Broker - {{instance}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "JVM Memory Usage",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "links": []
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 0,
-            "y": 165
-          },
-          "hiddenSeries": false,
-          "id": 81,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "paceLength": 10,
-          "percentage": false,
-          "pluginVersion": "7.3.4",
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P1809F7CD0C75ACF3"
-              },
-              "expr": "rate(process_cpu_seconds_total{job=~\"$job\",instance=~\"$broker\"}[5m])",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "Broker - {{instance}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "CPU Usage",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "s",
-              "label": "Usage/s",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P1809F7CD0C75ACF3"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {},
-              "links": []
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 9,
-            "w": 12,
-            "x": 12,
-            "y": 165
-          },
-          "hiddenSeries": false,
-          "id": 83,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": true,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "paceLength": 10,
-          "percentage": false,
-          "pluginVersion": "7.3.4",
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "P1809F7CD0C75ACF3"
-              },
-              "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"$job\",instance=~\"$broker\"}[1m]))",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Time spent in GC",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        }
-      ],
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 11,
+        "y": 123
+      },
+      "hiddenSeries": false,
+      "id": 81,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "P1809F7CD0C75ACF3"
           },
+          "expr": "rate(process_cpu_seconds_total{job=~\"$job\",instance=~\"$broker\"}[5m])",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Broker - {{instance}}",
           "refId": "A"
         }
       ],
-      "title": "JVM",
-      "type": "row"
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "CPU Usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": "Usage/s",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 17,
+        "y": 123
+      },
+      "hiddenSeries": false,
+      "id": 83,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pluginVersion": "9.4.7",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "expr": "sum without(gc)(rate(jvm_gc_collection_seconds_sum{job=\"$job\",instance=~\"$broker\"}[1m]))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Time spent in GC",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
     }
   ],
   "refresh": "1m",
@@ -4780,7 +4466,7 @@
           "type": "prometheus",
           "uid": "P1809F7CD0C75ACF3"
         },
-        "definition": "label_values(kafka_controller_kafkacontroller_controllerstate, job)",
+        "definition": "label_values(job)",
         "hide": 0,
         "includeAll": false,
         "label": "job",
@@ -4788,8 +4474,8 @@
         "name": "job",
         "options": [],
         "query": {
-          "query": "label_values(kafka_controller_kafkacontroller_controllerstate, job)",
-          "refId": "prometheus-job-Variable-Query"
+          "query": "label_values(job)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -4802,15 +4488,19 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
           "uid": "P1809F7CD0C75ACF3"
         },
-        "definition": "label_values(kafka_controller_kafkacontroller_controllerstate{job=\"$job\"}, instance)",
+        "definition": "label_values(kafka_controller_kafkacontroller_activebrokercount{job=\"$job\"}, instance)",
         "hide": 0,
         "includeAll": true,
         "label": "Broker",
@@ -4818,8 +4508,8 @@
         "name": "broker",
         "options": [],
         "query": {
-          "query": "label_values(kafka_controller_kafkacontroller_controllerstate{job=\"$job\"}, instance)",
-          "refId": "prometheus-broker-Variable-Query"
+          "query": "label_values(kafka_controller_kafkacontroller_activebrokercount{job=\"$job\"}, instance)",
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -4832,9 +4522,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -4893,7 +4587,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -4923,7 +4617,7 @@
     ]
   },
   "timezone": "",
-  "title": "Kafka Metrics",
+  "title": "Kafka Metrics - 11962",
   "uid": "5nhADrDWk",
   "version": 1,
   "weekStart": ""
