@@ -12,9 +12,44 @@ docker rmi -f $(docker images -a -q)
         'DB Size in MB' DESC;
 
 
-SELECT 'customer' AS table_name, COUNT(*) AS row_count FROM customer UNION ALL SELECT 'district', COUNT(*) FROM district UNION ALL
-SELECT 'history', COUNT(*) FROM history UNION ALL SELECT 'item', COUNT(*) FROM item UNION ALL SELECT 'new_order', COUNT(*) FROM new_order
-UNION ALL SELECT 'order_line', COUNT(*) FROM order_line UNION ALL SELECT 'orders', COUNT(*) FROM orders UNION ALL SELECT 'stock', COUNT(*) FROM stock UNION ALL SELECT 'warehouse', COUNT(*) FROM warehouse;
+SELECT 'customer' AS table_name, COUNT(*) AS row_count FROM customer 
+UNION ALL 
+SELECT 'district', COUNT(*) FROM district 
+UNION ALL
+SELECT 'history', COUNT(*) FROM history 
+UNION ALL 
+SELECT 'item', COUNT(*) FROM item 
+UNION ALL 
+SELECT 'new_order', COUNT(*) FROM new_order
+UNION ALL 
+SELECT 'order_line', COUNT(*) FROM order_line 
+UNION ALL 
+SELECT 'orders', COUNT(*) FROM orders 
+UNION ALL 
+SELECT 'stock', COUNT(*) FROM stock 
+UNION ALL 
+SELECT 'warehouse', COUNT(*) FROM warehouse;
+
+
+SELECT 'customer' AS table_name, COUNT(*) AS row_count FROM cdc_tpcc_customer 
+UNION ALL 
+SELECT 'district', COUNT(*) FROM cdc_tpcc_district 
+UNION ALL 
+SELECT 'item', COUNT(*) FROM cdc_tpcc_item 
+UNION ALL 
+SELECT 'new_order', COUNT(*) FROM cdc_tpcc_new_order
+UNION ALL 
+SELECT 'order_line', COUNT(*) FROM cdc_tpcc_order_line 
+UNION ALL 
+SELECT 'orders', COUNT(*) FROM cdc_tpcc_orders 
+UNION ALL 
+SELECT 'stock', COUNT(*) FROM cdc_tpcc_stock
+UNION ALL 
+SELECT 'history', COUNT(*) FROM cdc_tpcc_history 
+UNION ALL 
+SELECT 'warehouse', COUNT(*) FROM cdc_tpcc_warehouse;
+
+
 
 
 docker compose exec sinkmysql \

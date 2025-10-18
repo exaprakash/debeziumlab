@@ -13,13 +13,13 @@ PASSWORD="mysqlpw"
 declare -A table_partitions=(
   ["warehouse"]=4
   ["district"]=8
-  ["customer"]=24
+  ["customer"]=48
   ["history"]=12
-  ["orders"]=24
+  ["orders"]=48
   ["new_order"]=12
-  ["order_line"]=24
+  ["order_line"]=48
   ["item"]=4
-  ["stock"]=24
+  ["stock"]=48
 )
 rm -fr ./scripts/connector-templates
 mkdir -p ./scripts/connector-templates
@@ -31,7 +31,7 @@ for table in "${!table_partitions[@]}"; do
   partitions=${table_partitions[$table]}
   # tasks_max=$(( partitions / 4 ))
   if [ "$partitions" -gt 12 ]; then
-    tasks_max=$partitions
+    tasks_max=$(( partitions * 1 ))
   else
     tasks_max=$(( partitions / 4 ))
   fi  

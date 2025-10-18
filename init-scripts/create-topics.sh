@@ -6,13 +6,13 @@ echo "✅ Kafka is ready. Creating topics..."
 declare -A topics_partitions=(
   ["cdc.tpcc.warehouse"]=4
   ["cdc.tpcc.district"]=8
-  ["cdc.tpcc.customer"]=24
+  ["cdc.tpcc.customer"]=48
   ["cdc.tpcc.history"]=12
-  ["cdc.tpcc.orders"]=24
+  ["cdc.tpcc.orders"]=48
   ["cdc.tpcc.new_order"]=12
-  ["cdc.tpcc.order_line"]=24
+  ["cdc.tpcc.order_line"]=48
   ["cdc.tpcc.item"]=4
-  ["cdc.tpcc.stock"]=24
+  ["cdc.tpcc.stock"]=48
 )
 
 for topic in "${!topics_partitions[@]}"
