@@ -16,6 +16,16 @@ services:
     # depends_on:
     #   - kafka
 
+  mysql-exporter:
+    image: prom/mysqld-exporter:latest
+    container_name: mysql-exporter
+    environment:
+      DATA_SOURCE_NAME: "mysqluser:mysqlpw@(srcmysql:3306)/"
+    ports:
+      - "9104:9104"
+    depends_on:
+      - srcmysql
+
   hammerdb-cloudtk:
     image: tpcorg/hammerdb:latest-cloudtk
     container_name: hammerdb
