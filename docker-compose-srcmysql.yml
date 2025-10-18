@@ -22,16 +22,6 @@ services:
     environment:
       DATA_SOURCE_NAME: "mysqluser:mysqlpw@(srcmysql:3306)/"
     ports:
-      - "9104:9104"
-    depends_on:
-      - srcmysql
-
-  mysql-exporter:
-    image: prom/mysqld-exporter:latest
-    container_name: mysql-exporter
-    environment:
-      DATA_SOURCE_NAME: "mysqluser:mysqlpw@(srcmysql:3306)/"
-    ports:
       - "8080:9104"
     depends_on:
       - srcmysql
