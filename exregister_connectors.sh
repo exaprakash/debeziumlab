@@ -32,7 +32,7 @@ src_output_file="./scripts/connector-templates/register-srcmysql.json"
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
-    "database.hostname": "${SRC_DB_URL}",
+    "database.hostname": "${SRC_HOST}",
     "database.port": "3306",
     "database.user": "debezium",
     "database.password": "dbz",
