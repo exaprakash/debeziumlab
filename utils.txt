@@ -49,7 +49,15 @@ SELECT 'history', COUNT(*) FROM cdc_tpcc_history
 UNION ALL 
 SELECT 'warehouse', COUNT(*) FROM cdc_tpcc_warehouse;
 
-
+docker compose exec srcmysql \
+  mysql -u root -pdebezium -e \
+"SELECT 
+    table_schema,
+    table_name,
+    ROUND((data_length + index_length) / 1024 / 1024, 2) AS size_mb
+FROM information_schema.tables
+ORDER BY size_mb DESC;
+"
 
 
 docker compose exec sinkmysql \
