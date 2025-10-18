@@ -1,0 +1,35 @@
+services:
+  srcmysql:
+    image: quay.io/debezium/example-mysql:3.3
+    container_name: srcmysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "debezium"
+      MYSQL_USER: "mysqluser"
+      MYSQL_PASSWORD: "mysqlpw"
+    volumes:
+      - ./init-tpcc.sql:/docker-entrypoint-initdb.d/init-tpcc.sql:ro
+      - ./mysql.cnf:/etc/mysql/conf.d/my.cnf:ro
+    # mem_limit: 6g
+    # cpus: 4
+    # depends_on:
+    #   - kafka
+
+  hammerdb-cloudtk:
+    image: tpcorg/hammerdb:latest-cloudtk
+    container_name: hammerdb
+    ports:
+      - "3002:8081" 
+      - "9082:8082" 
+      - "9080:8080"
+    mem_limit: 2g
+    cpus: 1
+    depends_on:
+      - srcmysql
+      # - sinkmysql
+
+
+networks:
+  default:
+    name: srcmysqlnet

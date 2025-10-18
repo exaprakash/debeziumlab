@@ -1,0 +1,21 @@
+services:
+  sinkmysql:
+    image: quay.io/debezium/example-mysql:3.3
+    container_name: sinkmysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "debezium"
+      MYSQL_USER: "mysqluser"
+      MYSQL_PASSWORD: "mysqlpw"
+    volumes:
+      - ./init-tpcc.sql:/docker-entrypoint-initdb.d/init-tpcc.sql:ro
+      - ./mysql.cnf:/etc/mysql/conf.d/my.cnf:ro
+    # mem_limit: 6g
+    # cpus: 4
+    # depends_on:
+    #   - kafka
+
+networks:
+  default:
+    name: sinkmysqlnet
