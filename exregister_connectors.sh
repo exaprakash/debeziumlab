@@ -76,7 +76,7 @@ for table in "${!table_partitions[@]}"; do
   partitions=${table_partitions[$table]}
   # tasks_max=$(( partitions / 4 ))
   if [ "$partitions" -gt 12 ]; then
-    tasks_max=$(( partitions * 1 ))
+    tasks_max=$(( partitions / 2 ))
   else
     tasks_max=$(( partitions / 4 ))
   fi  
@@ -88,6 +88,7 @@ for table in "${!table_partitions[@]}"; do
   "config": {
     "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
     "tasks.max": "${tasks_max}",
+    "batch.size": "200000",
     "topics": "${topic_name}",
     "connection.url": "${SINK_DB_URL}",
     "connection.username": "${USERNAME}",
