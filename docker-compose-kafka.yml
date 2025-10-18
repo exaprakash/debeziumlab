@@ -46,8 +46,8 @@ services:
     depends_on:
      - kafka
      - kafka-init
-     - srcmysql
-     - sinkmysql
+    #  - srcmysql
+    #  - sinkmysql
     environment:
      - BOOTSTRAP_SERVERS=kafka:9092
      - GROUP_ID=1
