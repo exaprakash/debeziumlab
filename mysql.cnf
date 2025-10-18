@@ -1,7 +1,4 @@
 [mysqld]
 innodb_buffer_pool_size=4G
 max_connections=1500
-innodb_file_per_table=ON
-innodb_data_file_path=ibdata1:200G:autoextend
-innodb_redo_log_capacity=8G
-innodb_autoextend_increment=512M
+
