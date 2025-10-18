@@ -17,3 +17,11 @@ SELECT 'history', COUNT(*) FROM history UNION ALL SELECT 'item', COUNT(*) FROM i
 UNION ALL SELECT 'order_line', COUNT(*) FROM order_line UNION ALL SELECT 'orders', COUNT(*) FROM orders UNION ALL SELECT 'stock', COUNT(*) FROM stock UNION ALL SELECT 'warehouse', COUNT(*) FROM warehouse;
 
 
+docker compose exec sinkmysql \
+  mysql -u root -pdebezium -e "SHOW VARIABLES LIKE 'max_connections'; SHOW STATUS LIKE 'Threads_connected';"
+
+docker compose ps -q | xargs docker stats --no-stream
+
+
+
+

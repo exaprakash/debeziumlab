@@ -29,7 +29,12 @@ for table in "${!table_partitions[@]}"; do
   connector_name="sink_mysql_${table}"
   topic_name="cdc.tpcc.${table}"
   partitions=${table_partitions[$table]}
-  tasks_max=$(( partitions / 4 ))
+  # tasks_max=$(( partitions / 4 ))
+  if [ "$partitions" -gt 12 ]; then
+    tasks_max=$partitions
+  else
+    tasks_max=$(( partitions / 4 ))
+  fi  
   output_file="./scripts/connector-templates/register-${table}.json"
   echo "🔧 Generating connector config for table: ${table} (tasks.max=${tasks_max})"
   cat > "$output_file" <<EOF
