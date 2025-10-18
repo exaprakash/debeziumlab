@@ -17,6 +17,8 @@ SINK_DB_URL="jdbc:mysql://${SINK_HOST}:3306/tpcc"
 echo "Using SRC_DB_URL:  $SRC_DB_URL"
 echo "Using SINK_DB_URL: $SINK_DB_URL"
 
+rm -fr ./scripts/connector-templates
+mkdir -p ./scripts/connector-templates
 # curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-srcmysql.json
 # curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @register-sinkmysql.json
 
@@ -65,8 +67,7 @@ declare -A table_partitions=(
   ["item"]=4
   ["stock"]=48
 )
-rm -fr ./scripts/connector-templates
-mkdir -p ./scripts/connector-templates
+
 
 # Generate and register connector per table
 for table in "${!table_partitions[@]}"; do
