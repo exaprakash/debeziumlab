@@ -32,8 +32,8 @@ src_output_file="./scripts/connector-templates/register-srcmysql.json"
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
-    "max.batch.size": "8192",
-    "max.queue.size": "32768",
+    "max.batch.size": "50000",
+    "max.queue.size": "327680",
     "poll.interval.ms": "100",
     "database.hostname": "${SRC_HOST}",
     "database.port": "3306",
@@ -79,11 +79,13 @@ for table in "${!table_partitions[@]}"; do
   partitions=${table_partitions[$table]}
   # tasks_max=$(( partitions / 4 ))
   if [ "$partitions" -gt 12 ]; then
-    tasks_max=$(( partitions / 2 ))
-    batch_size=500000
+    tasks_max=$(( partitions / 1 ))
+    # batch_size=500000
+    batch_size=100
   else
     tasks_max=$(( partitions / 4 ))
-    batch_size=200000
+    # batch_size=200000
+    batch_size=100
   fi  
   output_file="./scripts/connector-templates/register-${table}.json"
   echo "🔧 Generating connector config for table: ${table} (tasks.max=${tasks_max})"
@@ -94,6 +96,7 @@ for table in "${!table_partitions[@]}"; do
     "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
     "tasks.max": "${tasks_max}",
     "batch.size": "${batch_size}",
+    "linger.ms": "100",
     "topics": "${topic_name}",
     "connection.url": "${SINK_DB_URL}",
     "connection.username": "${USERNAME}",
