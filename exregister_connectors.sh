@@ -32,6 +32,9 @@ src_output_file="./scripts/connector-templates/register-srcmysql.json"
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "tasks.max": "1",
+    "max.batch.size": "8192",
+    "max.queue.size": "32768",
+    "poll.interval.ms": "100",
     "database.hostname": "${SRC_HOST}",
     "database.port": "3306",
     "database.user": "debezium",
