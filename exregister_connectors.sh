@@ -77,8 +77,10 @@ for table in "${!table_partitions[@]}"; do
   # tasks_max=$(( partitions / 4 ))
   if [ "$partitions" -gt 12 ]; then
     tasks_max=$(( partitions / 2 ))
+    batch_size=500000
   else
     tasks_max=$(( partitions / 4 ))
+    batch_size=200000
   fi  
   output_file="./scripts/connector-templates/register-${table}.json"
   echo "🔧 Generating connector config for table: ${table} (tasks.max=${tasks_max})"
@@ -88,7 +90,7 @@ for table in "${!table_partitions[@]}"; do
   "config": {
     "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
     "tasks.max": "${tasks_max}",
-    "batch.size": "200000",
+    "batch.size": "${batch_size}",
     "topics": "${topic_name}",
     "connection.url": "${SINK_DB_URL}",
     "connection.username": "${USERNAME}",
