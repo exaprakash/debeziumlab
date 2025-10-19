@@ -2732,113 +2732,189 @@
           "type": "prometheus",
           "uid": "P1809F7CD0C75ACF3"
         },
-        "definition": "debezium_metrics_BinlogPosition",
+        "definition": "debezium_metrics_source_offset_lag",
         "hide": 0,
         "includeAll": true,
-        "label": "MySQL Node",
+        "label": "MySQL Node (Lag)",
         "multi": false,
-        "name": "name",
+        "name": "lag_name",
         "options": [],
         "query": {
-          "query": "debezium_metrics_BinlogPosition",
-          "refId": "prometheus-name-Variable-Query"
+          "query": "debezium_metrics_source_offset_lag",
+          "refId": "prometheus-lag-name-Variable-Query"
         },
         "refresh": 1,
-        "regex": "/.*[,\\(]name=\"([^\"]+)\".*/",
+        "regex": "/.*name=\"([^\"]+)\".*/",
         "skipUrlSync": false,
         "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
         "current": {
           "selected": false,
-          "text": "connect:8080",
-          "value": "connect:8080"
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "P1809F7CD0C75ACF3"
         },
-        "definition": "debezium_metrics_BinlogPosition",
+        "definition": "debezium_metrics_source_offset_lag",
         "hide": 0,
-        "includeAll": false,
-        "label": "Connector Node",
+        "includeAll": true,
+        "label": "Connector Node (Lag)",
         "multi": false,
-        "name": "instance",
+        "name": "lag_instance",
         "options": [],
         "query": {
-          "query": "debezium_metrics_BinlogPosition",
-          "refId": "prometheus-instance-Variable-Query"
+          "query": "debezium_metrics_source_offset_lag",
+          "refId": "prometheus-lag-instance-Variable-Query"
         },
         "refresh": 1,
         "regex": "/.*instance=\"([^\"]+)\".*/",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": "streaming",
-          "value": "streaming"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "P1809F7CD0C75ACF3"
-        },
-        "definition": "debezium_metrics_MilliSecondsSinceLastEvent",
-        "hide": 0,
-        "includeAll": false,
-        "label": "context",
-        "multi": false,
-        "name": "context",
-        "options": [],
-        "query": {
-          "query": "debezium_metrics_MilliSecondsSinceLastEvent",
-          "refId": "prometheus-context-Variable-Query"
-        },
-        "refresh": 1,
-        "regex": "/.*context=\"([^\"]+)\".*/",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
         "current": {
           "selected": false,
-          "text": "mysql",
-          "value": "mysql"
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "P1809F7CD0C75ACF3"
         },
-        "definition": "debezium_metrics_BinlogPosition",
+        "definition": "debezium_metrics_source_offset_lag",
         "hide": 0,
-        "includeAll": false,
-        "label": "plugin",
+        "includeAll": true,
+        "label": "Task",
         "multi": false,
-        "name": "plugin",
+        "name": "lag_task",
         "options": [],
         "query": {
-          "query": "debezium_metrics_BinlogPosition",
-          "refId": "prometheus-plugin-Variable-Query"
+          "query": "debezium_metrics_source_offset_lag",
+          "refId": "prometheus-lag-task-Variable-Query"
         },
         "refresh": 1,
-        "regex": "/.*plugin=\"([^\"]+)\".*/",
+        "regex": "/.*task=\"([^\"]+)\".*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P1809F7CD0C75ACF3"
+        },
+        "definition": "debezium_metrics_records_pending",
+        "hide": 0,
+        "includeAll": true,
+        "label": "MySQL Node (Pending Records)",
+        "multi": false,
+        "name": "pending_name",
+        "options": [],
+        "query": {
+          "query": "debezium_metrics_records_pending",
+          "refId": "prometheus-pending-name-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "/.*name=\"([^\"]+)\".*/",
         "skipUrlSync": false,
         "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P1809F7CD0C75ACF3"
+        },
+        "definition": "debezium_metrics_records_pending",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Connector Node (Pending Records)",
+        "multi": false,
+        "name": "pending_instance",
+        "options": [],
+        "query": {
+          "query": "debezium_metrics_records_pending",
+          "refId": "prometheus-pending-instance-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "/.*instance=\"([^\"]+)\".*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P1809F7CD0C75ACF3"
+        },
+        "definition": "kafka_connect_task_status",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Connector Tasks",
+        "multi": false,
+        "name": "task_connector",
+        "options": [],
+        "query": {
+          "query": "kafka_connect_task_status",
+          "refId": "prometheus-task-connector-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "/.*task=\"([^\"]+)\".*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P1809F7CD0C75ACF3"
+        },
+        "definition": "kafka_connect_connector_status",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Connectors",
+        "multi": false,
+        "name": "connector_status",
+        "options": [],
+        "query": {
+          "query": "kafka_connect_connector_status",
+          "refId": "prometheus-connector-status-Variable-Query"
+        },
+        "refresh": 1,
+        "regex": "/.*connector=\"([^\"]+)\".*/",
+        "skipUrlSync": false,
+        "sort": 0,
         "type": "query",
         "useTags": false
       }
