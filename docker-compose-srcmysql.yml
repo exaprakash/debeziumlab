@@ -26,7 +26,7 @@ services:
     depends_on:
       - srcmysql
     volumes:
-      - ./my.cnf:/etc/.my.cnf:ro
+      - ./.my.cnf:/etc/.my.cnf:ro
 
 
   hammerdb-cloudtk:
