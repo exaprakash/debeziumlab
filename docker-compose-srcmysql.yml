@@ -25,8 +25,13 @@ services:
       - "8080:9104"
     depends_on:
       - srcmysql
+    #volumes:
+    #  - ./.my.cnf:/etc/.my.cnf:ro
+    command:
+      - --config.my-cnf=/cfg/config.my-cnf
     volumes:
-      - ./.my.cnf:/etc/.my.cnf:ro
+      - ./.my.cnf:/cfg/config.my-cnf:ro
+
 
 
   hammerdb-cloudtk:
