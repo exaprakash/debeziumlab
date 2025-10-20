@@ -19,3 +19,19 @@ scrape_configs:
     scheme: http
     static_configs:
       - targets: ["connect:8080"]
+
+  - job_name: srcmysql
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets: ["srcmysql:8080"]
+
+  - job_name: sinkmysql
+    scrape_interval: 10s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets: ["sinkmysql:8080"]
