@@ -16,6 +16,18 @@ services:
     # depends_on:
     #   - kafka
 
+  mysql-exporter:
+    image: prom/mysqld-exporter:latest
+    container_name: mysql-exporter
+    environment:
+      DATA_SOURCE_NAME: "mysqluser:mysqlpw@(sinkmysql:3306)/"
+    ports:
+      - "8080:9104"
+    depends_on:
+      - sinkmysql
+    volumes:
+      - ./.sinkmy.cnf:/etc/.my.cnf:ro
+
 networks:
   default:
     name: sinkmysqlnet
