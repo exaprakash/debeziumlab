@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 7,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -89,7 +89,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -109,7 +109,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "sum"
           ],
           "fields": "",
           "values": false
@@ -1225,8 +1225,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1300,8 +1299,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "semi-dark-blue",
-                    "value": null
+                    "color": "semi-dark-blue"
                   },
                   {
                     "color": "semi-dark-purple",
@@ -1378,8 +1376,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1455,8 +1452,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1532,8 +1528,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1609,8 +1604,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1676,8 +1670,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "semi-dark-blue",
-                    "value": null
+                    "color": "semi-dark-blue"
                   },
                   {
                     "color": "semi-dark-purple",
@@ -1847,8 +1840,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1922,8 +1914,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1989,8 +1980,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "semi-dark-blue",
-                    "value": null
+                    "color": "semi-dark-blue"
                   },
                   {
                     "color": "dark-purple",
@@ -2311,8 +2301,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2389,8 +2378,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2464,8 +2452,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2784,7 +2771,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "streaming",
           "value": "streaming"
         },
@@ -2845,7 +2832,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
