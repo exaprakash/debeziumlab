@@ -1,6 +1,7 @@
 docker rmi -f $(docker images -a -q)
- docker compose  exec -it sinkmysql mysql -uroot -pdebezium
+docker compose  exec -it sinkmysql mysql -uroot -pdebezium
 
+docker run -it --detach --entrypoint /bin/bash --name debezium -p 8080:8080 quay.io/debezium/server
      SELECT 
         table_schema AS 'DB Name',
         ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS 'DB Size in MB'
