@@ -1,0 +1,41 @@
+# ========== Debezium Server Configuration ==========
+
+quarkus:
+  log:
+    level: INFO
+
+debezium:
+  source:
+    connector.class: io.debezium.connector.mysql.MySqlConnector
+    database.hostname: 44.202.206.43
+    database.port: 3306
+    database.user: debezium
+    database.password: dbz
+    database.include.list: tpcc
+    database.server.id: 184054
+    topic.prefix: cdc
+    snapshot.mode: no_data
+    heartbeat.interval.ms: 10000
+    max.batch.size: 100000
+    max.queue.size: 300000
+    poll.interval.ms: 10000
+
+  sink:
+    type: jdbc
+    jdbc:
+      connection.url: jdbc:mysql://34.236.255.113:3306/tpcc
+      connection.username: mysqluser
+      connection.password: mysqlpw
+      insert.mode: upsert
+
+  engine:
+    offset.storage.file.filename: /tmp/offsets_connector-order_line.dat
+    offset.flush.interval.ms: 60000
+    schema.history.internal.file.filename: /tmp/schemahistory_connector-order_line.dat
+
+# ========== Monitoring ==========
+quarkus:
+  http:
+    port: 8080
+
+# Prometheus metrics exposed at /q/metrics
