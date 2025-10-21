@@ -1,0 +1,11 @@
+services:
+  server:
+    build:
+      context: debezium-server
+      args:
+        DEBEZIUM_VERSION: ${DEBEZIUM_VERSION}
+    container_name: debezium-server-exasol
+    ports:
+      - 8080:8080
+    volumes:
+      - ./debezium-server/application.yml:/debezium/config/application.yaml
