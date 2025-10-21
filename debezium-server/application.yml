@@ -9,8 +9,8 @@ debezium:
     connector.class: io.debezium.connector.mysql.MySqlConnector
     database.hostname: 44.202.206.43
     database.port: 3306
-    database.user: debezium
-    database.password: dbz
+    database.user: ${debezium}
+    database.password: ${dbz}
     database.include.list: tpcc
     database.server.id: 184054
     topic.prefix: cdc
@@ -24,8 +24,8 @@ debezium:
     type: jdbc
     jdbc:
       connection.url: jdbc:mysql://34.236.255.113:3306/tpcc
-      connection.username: mysqluser
-      connection.password: mysqlpw
+      connection.username: ${mysqluser}
+      connection.password: ${mysqlpw}
       insert.mode: upsert
 
   engine:
