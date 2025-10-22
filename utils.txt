@@ -64,6 +64,8 @@ ORDER BY size_mb DESC;
 docker compose exec sinkmysql \
   mysql -u root -pdebezium -e "SHOW VARIABLES LIKE 'max_connections'; SHOW STATUS LIKE 'Threads_connected';"
 
+docker run -it --detach --entrypoint /bin/bash --name debezium -p 8080:8080  exarhel/debezium-server-console
+
 docker compose ps -q | xargs docker stats --no-stream
 
 
